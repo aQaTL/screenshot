@@ -1,0 +1,8 @@
+[package]
+name = "screenshot"
+version = "0.1.0"
+authors = ["aQaTL <mmsoltys@outlook.com>"]
+edition = "2018"
+
+[dependencies]
+winapi = { version = "0.3.6", features = ["winuser", "windef", "wingdi"] }

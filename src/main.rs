@@ -15,7 +15,7 @@ fn main() {
 	};
 
 	let img = image::load_from_memory_with_format(&*bmp, image::BMP).unwrap();
-	img.save("screenshot.png").unwrap();
+	img.save("screenshot.jpg").unwrap();
 }
 
 pub fn message_box_error(title: &str, msg: &str) {

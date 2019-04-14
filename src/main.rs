@@ -3,7 +3,9 @@
 mod screenshot;
 
 use crate::screenshot::*;
+
 use winapi::um::winuser::{MessageBoxW, MB_ICONERROR};
+use image::{GenericImageView, ImageFormat};
 
 fn main() {
 	let bmp = match screenshot(None) {
@@ -13,8 +15,11 @@ fn main() {
 			panic!(msg);
 		}
 	};
+	let img = image::load_from_memory_with_format(bmp.as_slice(), ImageFormat::BMP).unwrap();
+	let mut buf = Vec::new();
+	let mut jpeg_enc = image::jpeg::JPEGEncoder::new_with_quality(&mut buf, 90);
+	jpeg_enc.encode(img.raw_pixels().as_slice(), img.width(), img.height(), img.color()).unwrap();
 
-	let img = image::load_from_memory_with_format(&*bmp, image::BMP).unwrap();
 	img.save("screenshot.jpg").unwrap();
 }
 
